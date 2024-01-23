@@ -4,6 +4,7 @@
 # ==================== VARIABLES ==================== #
 
 AUR_DIR="$HOME/Downloads/Repos/AUR"
+CONFIG_DIR=$HOME/.config/
 
 ARCH_PKG=(
     linux-headers
@@ -76,6 +77,7 @@ GrubConfig()
 
 # ==================== FUNCTIONS ==================== #
 
+# ==================== BEGIN ==================== #
 
 sudo pacman -Syyu --noconfirm
 
@@ -100,3 +102,13 @@ for aur in "${AUR_PKG[@]}"; do
     cd .. 
     rm -rf "$aur"
 done
+
+if [ -d "$CONFIG_DIR"/hypr ];
+then
+    mv "$CONFIG_DIR"/hypr "$CONFIG_DIR"/hypr.bak
+    cp -r hypr "$CONFIG_DIR"
+else 
+    cp -r hypr "$CONFIG_DIR"
+fi
+
+# ==================== END ==================== #
