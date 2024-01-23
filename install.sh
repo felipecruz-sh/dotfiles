@@ -3,8 +3,9 @@
 
 # ==================== VARIABLES ==================== #
 
-AUR_DIR="$HOME/Downloads/Repos/AUR"
-CONFIG_DIR=$HOME/.config/
+AUR_DIR="$HOME"/Downloads/Repos/AUR
+CONFIG_DIR="$HOME"/.config/
+CONFIG_BKP="$CONFIG_DIR"/config.bak
 
 ARCH_PKG=(
     linux-headers
@@ -38,6 +39,13 @@ AUR_PKG=(
     nwg-look
     swaync
     swww
+)
+
+DOTFILES=(
+    hypr
+    kitty
+    swww
+    waybar
 )
 
 # ==================== VARIABLES ==================== #
@@ -75,6 +83,17 @@ GrubConfig()
     fi
 }
 
+BkpDotfiles()
+{
+    mkdir "$CONFIG_BKP"
+
+    for i in "${DOTFILES[@]}"; do
+        if [ -d "$CONFIG_DIR"/"$i" ]; then
+            cp -r "$CONFIG_DIR"/"$i" "$CONFIG_BKP"
+        fi
+    done
+}
+
 # ==================== FUNCTIONS ==================== #
 
 # ==================== BEGIN ==================== #
@@ -82,33 +101,25 @@ GrubConfig()
 sudo pacman -Syyu --noconfirm
 
 sudo rm /etc/pacman.conf && sudo cp Config/.config/pacman/pacman.conf /etc/pacman.conf
-sudo mkdir /etc/ly && sudo cp .config/ly/config.ini /etc/ly/config.ini 
-
-GrubConfig
+sudo mkdir /etc/ly && sudo cp ../Config/.config/ly/config.ini /etc/ly/config.ini 
 
 if nvidia_detect; then
     sudo pacman -S --noconfirm nvidia-dkms nvidia-utils
 fi
 
-for arch in "${ARCH_PKG[@]}"; do
-    sudo pacman -S --noconfirm "$arch"
+GrubConfig
+
+for i in "${ARCH_PKG[@]}"; do
+    sudo pacman -S --noconfirm "$i"
 done
 
 mkdir -p "$AUR_DIR"
-for aur in "${AUR_PKG[@]}"; do
-    git clone https://aur.archlinux.org/"$aur".git
-    cd "$aur" || exit 
+for i in "${AUR_PKG[@]}"; do
+    git clone https://aur.archlinux.org/"$i".git
+    cd "$i" || exit
     makepkg -si --noconfirm
     cd .. 
-    rm -rf "$aur"
+    rm -rf "$i"
 done
-
-if [ -d "$CONFIG_DIR"/hypr ];
-then
-    mv "$CONFIG_DIR"/hypr "$CONFIG_DIR"/hypr.bak
-    cp -r hypr "$CONFIG_DIR"
-else 
-    cp -r hypr "$CONFIG_DIR"
-fi
 
 # ==================== END ==================== #
