@@ -1,0 +1,4 @@
+nwg-look
+swaync
+swww
+paper-icon-theme-git
