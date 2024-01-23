@@ -29,9 +29,3 @@ if [ "$(bootctl status | awk '{if ($1 == "Product:") print $2}')"  == "GRUB" ]; 
         fi
     fi
 fi
-
-
-# systemd-boot
-
-
-
