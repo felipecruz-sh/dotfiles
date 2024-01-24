@@ -44,6 +44,7 @@ AUR_PKG=(
 DOTFILES=(
     hypr
     kitty
+    neofetch
     swww
     waybar
 )
