@@ -15,6 +15,8 @@ ARCH_PKG=(
     hyprland
     xdg-desktop-portal-hyprland
     pipewire
+    pipewire-pulse
+    gst-plugin-pipewire
     wireplumber
     pavucontrol
     kitty
