@@ -5,7 +5,6 @@
 
 AUR_DIR="$HOME"/Downloads/Repos/AUR
 CONFIG_DIR="$HOME"/.config/
-CONFIG_BKP="$CONFIG_DIR"/config.bak
 
 ARCH_PKG=(
     linux-headers
@@ -20,6 +19,7 @@ ARCH_PKG=(
     wireplumber
     pavucontrol
     kitty
+    imagemagick
     waybar
     thunar
     btop
@@ -55,16 +55,6 @@ DOTFILES=(
 
 # ==================== FUNCTIONS ==================== #
 
-nvidia_detect()
-{
-    if [ "$(lspci -k | grep -A 2 -E "(VGA|3D)" | grep -c nvidia)" -gt 0 ]
-    then
-        return 0
-    else
-        return 1
-    fi
-}
-
 GrubConfig()
 {
     if [ "$(bootctl status | awk '{if ($1 == "Product:") print $2}')"  == "GRUB" ]; then
@@ -84,17 +74,6 @@ GrubConfig()
             fi
         fi
     fi
-}
-
-BkpDotfiles()
-{
-    mkdir "$CONFIG_BKP"
-
-    for i in "${DOTFILES[@]}"; do
-        if [ -d "$CONFIG_DIR"/"$i" ]; then
-            cp -r "$CONFIG_DIR"/"$i" "$CONFIG_BKP"
-        fi
-    done
 }
 
 # ==================== FUNCTIONS ==================== #
