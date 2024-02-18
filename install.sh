@@ -4,7 +4,6 @@
 # ==================== VARIABLES ==================== #
 
 AUR_DIR="$HOME"/Downloads/Repos/AUR
-CONFIG_DIR="$HOME"/.config/
 
 ARCH_PKG=(
     linux-headers
@@ -43,40 +42,7 @@ AUR_PKG=(
     swww
 )
 
-DOTFILES=(
-    hypr
-    kitty
-    neofetch
-    swww
-    waybar
-)
-
 # ==================== VARIABLES ==================== #
-
-# ==================== FUNCTIONS ==================== #
-
-GrubConfig()
-{
-    if [ "$(bootctl status | awk '{if ($1 == "Product:") print $2}')"  == "GRUB" ]; then
-        echo -e "\033[92m[BOOTLOADER]\033[0m: grub detected..."
-
-        if [ ! -f /etc/default/grub.bak ] && [ ! -f /boot/grub/grub.bak ]; then
-            echo -e "\033[92m[GRUB]\033[0m: configuring grub..."
-            sudo cp /etc/default/grub /etc/default/grub.bak
-            sudo cp /boot/grub/grub.cfg /boot/grub/grub.bak
-
-            if nvidia_detect; then
-                echo -e "\033[92m[GRUB]\033[0m: nvidia detected, adding nvidia_drm.modeset=1 to boot option..."
-                gcld=$(grep "^GRUB_CMDLINE_LINUX_DEFAULT=" "/etc/default/grub" | cut -d'"' -f2 | sed 's/\b nvidia_drm.modeset=.\b//g')
-                sudo sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/c\GRUB_CMDLINE_LINUX_DEFAULT=\"${gcld} nvidia_drm.modeset=1\"" /etc/default/grub
-
-                sudo grub-mkconfig -o /boot/grub/grub.cfg
-            fi
-        fi
-    fi
-}
-
-# ==================== FUNCTIONS ==================== #
 
 # ==================== BEGIN ==================== #
 
@@ -85,11 +51,6 @@ sudo pacman -Syyu --noconfirm
 sudo rm /etc/pacman.conf && sudo cp Config/.config/pacman/pacman.conf /etc/pacman.conf
 sudo mkdir /etc/ly && sudo cp ../Config/.config/ly/config.ini /etc/ly/config.ini 
 
-if nvidia_detect; then
-    sudo pacman -S --noconfirm nvidia-dkms nvidia-utils
-fi
-
-GrubConfig
 
 for i in "${ARCH_PKG[@]}"; do
     sudo pacman -S --noconfirm "$i"
