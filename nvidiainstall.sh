@@ -1,21 +1,5 @@
 #!/usr/bin/env bash
 
-
-# ============================== FUNCTIONS ============================== #
-
-nvidia_detect()
-{
-    if [ "$(lspci -k | grep -A 2 -E "(VGA|3D)" | grep -c nvidia)" -gt 0 ]
-    then
-        return 0
-    else
-        return 1
-    fi
-}
-
-# ============================== FUNCTIONS ============================== #
-
-
 # ================================ BEGIN ================================ #
 
 if nvidia_detect; then
@@ -42,4 +26,4 @@ if nvidia_detect; then
     echo "options nvidia-drm modeset=1" | sudo tee -a /etc/modprobe.d/nvidia.conf > /dev/null
 fi
 
-# ================================ BEGIN ================================ #
+# ================================ END ================================ #
