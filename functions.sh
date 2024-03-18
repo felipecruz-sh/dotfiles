@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-NvidiaDetect()
-{
+NvidiaDetect() {
     if [ "$(lspci -k | grep -A 2 -E "(VGA|3D)" | grep -c nvidia)" -gt 0 ]
     then
         return 0
@@ -10,8 +9,7 @@ NvidiaDetect()
     fi
 }
 
-PacmanConf()
-{
+PacmanConf() {
     PacmanDir="/etc/pacman.conf"
     MultilibLine=$(grep -n "\\[multilib\\]" "$PacmanDir" | cut -d: -f1)
     IncludeLine=$((MultilibLine + 1))
@@ -22,8 +20,7 @@ PacmanConf()
 }
 
 
-GrubConfig()
-{   
+GrubConfig() {   
 mv /etc/default/grub /etc/default/grub.bak
 
 cat > /etc/default/grub << EOF
@@ -44,11 +41,19 @@ EOF
 grub-mkconfig -o /boot/grub/grub.cfg
 }
 
-BootSplashScreen()
-{
+BootSplashScreen() {
     sed -i '/^HOOKS/ s/udev /udev plymouth /' /etc/mkinitcpio.conf
     mkinitcpio -p linux-lts
     plymouth-set-default-theme -R bgrt
     sed -i '/^Theme/a ShowDelay\=0' /etc/plymouth/plymouthd.conf
     sed -i '/message/d' /etc/grub.d/10_linux
+}
+
+IsPkgInstalled() {
+    local PkgName=$1
+    if pacman -Qs "$PkgName" > /dev/null; then
+        return 0 
+    else
+        return 1
+    fi
 }
