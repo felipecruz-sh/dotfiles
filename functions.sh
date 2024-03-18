@@ -53,3 +53,7 @@ BootSplashScreen()
 
     sed -i '/message/d' /etc/grub.d/10_linux
 }
+
+PacmanConf
+GrubConfig
+BootSplashScreen
