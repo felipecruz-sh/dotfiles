@@ -41,7 +41,7 @@ GRUB_CMDLINE_LINUX=""
 #GRUB_INIT_TUNE="480 440 1"
 EOF
 
-grub-mkconfig -o /boot/grub/grbu.cfg
+grub-mkconfig -o /boot/grub/grub.cfg
 }
 
 BootSplashScreen()
