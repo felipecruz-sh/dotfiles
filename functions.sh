@@ -50,4 +50,6 @@ BootSplashScreen()
     sed -i '/^Theme/a ShowDelay=0' /etc/plymouth/plymouthd.conf
     mkinitcpio -p linux-lts
     plymouth-set-default-theme -R bgrt
+
+    sed -i '/message/d' /etc/grub.d/10_linux
 }
