@@ -15,7 +15,7 @@ PacmanConf()
     PacmanDir="/etc/pacman.conf"
     MultilibLine=$(grep -n "\\[multilib\\]" "$PacmanDir" | cut -d: -f1)
     IncludeLine=$((MultilibLine + 1))
-
+    
     sed -i "/^#Color\|^#ParallelDownloads\|^#VerbosePkgLists\|^#\[multilib\]/s/^#//" "$PacmanDir"
     sed -i "${IncludeLine}s/^#//" "$PacmanDir"
     sed -i '/^Color/a ILoveCandy' "$PacmanDir"
@@ -47,16 +47,8 @@ grub-mkconfig -o /boot/grub/grub.cfg
 BootSplashScreen()
 {
     sed -i '/^HOOKS/ s/udev /udev plymouth /' /etc/mkinitcpio.conf
-    
     mkinitcpio -p linux-lts
-    
     plymouth-set-default-theme -R bgrt
-
     sed -i '/^Theme/a ShowDelay\=0' /etc/plymouth/plymouthd.conf
-    
     sed -i '/message/d' /etc/grub.d/10_linux
 }
-
-PacmanConf
-GrubConfig
-BootSplashScreen
