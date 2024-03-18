@@ -46,7 +46,7 @@ grub-mkconfig -o /boot/grub/grbu.cfg
 
 BootSplashScreen()
 {
-    sed -i '/HOOKS=/ s/udev /udev plymouth ' /etc/mkinitcpio.conf
+    sed -i '/^HOOKS/ s/udev /udev plymouth /' /etc/mkinitcpio.conf
     sed -i '/^Theme/a ShowDelay=0' /etc/plymouth/plymouthd.conf
     mkinitcpio -p linux-lts
     plymouth-set-default-theme -R bgrt
