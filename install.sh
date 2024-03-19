@@ -2,7 +2,7 @@
 
 # ==================== SOURCES ====================
 
-source .install/pacman.nanosh
+source .install/pacman.sh
 
 # ==================== SOURCES ====================
 
