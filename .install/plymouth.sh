@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-BootSplashScreen() {
+Plymouth() {
     sed -i '/^HOOKS/ s/udev /udev plymouth /' /etc/mkinitcpio.conf
     mkinitcpio -p linux-lts
     plymouth-set-default-theme -R bgrt
