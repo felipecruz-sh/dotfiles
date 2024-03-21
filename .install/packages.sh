@@ -36,12 +36,12 @@ InstallPacmanPackages() {
     done
 }
 
-
-mkdir -p "$AUR_DIR"
-for i in "${AUR_PKG[@]}"; do
+InstallAURPackages() {
+    for i in "${AUR_PKG[@]}"; do
     git clone https://aur.archlinux.org/"$i".git
     cd "$i" || exit
     makepkg -si --noconfirm
     cd .. 
     rm -rf "$i"
-done
+    done
+}
