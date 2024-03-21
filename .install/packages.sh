@@ -19,4 +19,29 @@ PacmanPackages=(
     polkit-gnome
     ttf-jetbrains-mono
     ttf-jetbrains-mono-nerd
+    base-devel #AUR
+    ly #Display Manager
+    rofi #App Launcher
 )
+
+AUR_PKG=(
+    nwg-look
+    swaync
+    swww
+)
+
+InstallPacmanPackages() {
+    for i in "${PacmanPackages[@]}"; do
+    sudo pacman -S --noconfirm "$i"
+    done
+}
+
+
+mkdir -p "$AUR_DIR"
+for i in "${AUR_PKG[@]}"; do
+    git clone https://aur.archlinux.org/"$i".git
+    cd "$i" || exit
+    makepkg -si --noconfirm
+    cd .. 
+    rm -rf "$i"
+done

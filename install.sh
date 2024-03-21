@@ -11,9 +11,7 @@ source .install/graphics.sh
 
 PacmanConf
 
-for i in "${PacmanPackages[@]}"; do
-    sudo pacman -S --noconfirm "$i"
-done
+InstallPacmanPackages
 
 GrubConfig
 
