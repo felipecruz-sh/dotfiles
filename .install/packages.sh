@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 PacmanPackages=(
+    linux-headers
     plymouth
     hyprland
     xdg-desktop-portal-hyprland
