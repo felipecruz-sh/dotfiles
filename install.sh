@@ -29,9 +29,9 @@ read -r GraphicsCard
 
 case $GraphicsCard in
 1)
-    IntelGraphics;;
+    Intel;;
 2)
-    AMDGraphics;;
+    AMD;;
 3)
-    NvidiaGraphics;;
+    Nvidia;;
 esac
