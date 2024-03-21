@@ -22,4 +22,12 @@ NvidiaGraphics() {
     sudo mkinitcpio --config /etc/mkinitcpio.conf --generate /boot/initramfs-custom.img
 
     echo "options nvidia-drm modeset=1" | sudo tee -a /etc/modprobe.d/nvidia.conf > /dev/null
+
+    cat > /etc/modprobe.d/nvidia.conf << EOF
+    options nvidia-drm modeset=1
+    options nvidia "NVreg_UsePageAttributeTable=1"
+    options nvidia "NVreg_PreserveVideoMemoryAllocations=1"
+    options nvidia "NVreg_TemporaryFilePath=/var/temp"
+    options nvidia "NVreg_EnableS0ixPowerManagement=1"
+EOF
 }
