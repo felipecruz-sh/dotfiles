@@ -1,37 +1,20 @@
 #!/usr/bin/env bash
 
-# ==================== SOURCES ====================
+# ============================== SOURCES ==============================
 
-source .install/pacman.sh
-source .install/grub.sh
-source .install/packages.sh
-source .install/graphics.sh
+source .install/functions.sh
+source .install/variables.sh
 
-# ==================== SOURCES ====================
+# ============================== SOURCES ==============================
 
-PacmanConf
 
-InstallPacmanPackages
+# ============================== BEGIN ==============================
 
-GrubConfig
+if IsInstalled pacman; then
+    PacmanConf
+else
+    echo -e "${BoldRed}[$0]: pacman not found, it seems that the system is not ArchLinux or Arch-based distros. Aborting...${Reset}"
+    exit 1
+fi
 
-echo "
-=================================
-=     Which Graphics Card?      =
-=================================
-
-1) Intel
-2) AMD
-3) Nvidia
-"
-
-read -r GraphicsCard
-
-case $GraphicsCard in
-1)
-    Intel;;
-2)
-    AMD;;
-3)
-    Nvidia;;
-esac
+# ============================== END ==============================
