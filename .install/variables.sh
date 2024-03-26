@@ -5,9 +5,7 @@ BoldRed='\033[1;31m'
 BoldGreen='\033[1;32m'
 BoldYellow='\033[1;33m'
 
-
-
-Lines='GRUB_DEFAULT=0
+GrubCFG='GRUB_DEFAULT=0
 	GRUB_TIMEOUT_STYLE=hidden
 	GRUB_TIMEOUT=0
 	GRUB_DISTRIBUTOR="Arch"
