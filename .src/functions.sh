@@ -49,7 +49,7 @@ function Plymouth() {
     sudo mkinitcpio -p linux-lts
     sudo plymouth-set-default-theme -R bgrt
     sudo sed -i '/^Theme/a ShowDelay\=0' /etc/plymouth/plymouthd.conf
-    sudo sed -i '/message/d' /etc/grub.d/10_linux
+    sudo sed -i '/message/d' /etc/grub.d/10_linux 
 }
 
 function InstallAURPackages() {
