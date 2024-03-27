@@ -23,10 +23,22 @@ function InstallPacmanPackages() {
 }
 
 function GrubConfig() {
-    local lines="$1"
+    local lines='GRUB_DEFAULT=0
+	    GRUB_TIMEOUT_STYLE=hidden
+	    GRUB_TIMEOUT=0
+	    GRUB_DISTRIBUTOR="Arch"
+	    GRUB_CMDLINE_LINUX_DEFAULT="quiet vga=current splash"
+	    GRUB_CMDLINE_LINUX=""
+	    #GRUB_DISABLE_OS_PROBER=false
+	    #GRUB_TERMINAL=console
+	    #GRUB_GFXMODE=auto
+	    #GRUB_DISABLE_LINUX_UUID=true
+	    #GRUB_DISABLE_RECOVERY="true"
+	    #GRUB_INIT_TUNE="480 440 1"'
+
     if grub-install --version >&- && [ -f /boot/grub/grub.cfg ]; then
         sudo mv /etc/default/grub /etc/default/grub.bak
-        if sudo echo "${lines//  /}" >> /etc/default/grub; then
+        if echo "$lines" | sed 's/^[ \t]*//' | sudo tee -a /etc/default/grub > /dev/null; then
             sudo grub-mkconfig -o /boot/grub/grub.cfg
         fi
     fi
