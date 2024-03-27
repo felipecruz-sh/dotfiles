@@ -19,5 +19,7 @@ fi
 
 InstallPacmanPackages "${PacmanPackages[@]}"
 
-GrubConfig "$GrubCFG"
+GrubConfig
+
+Plymouth
 # ============================== END ==============================

@@ -45,11 +45,11 @@ function GrubConfig() {
 }
 
 function Plymouth() {
-    sed -i '/^HOOKS/ s/udev /udev plymouth /' /etc/mkinitcpio.conf
-    mkinitcpio -p linux-lts
-    plymouth-set-default-theme -R bgrt
-    sed -i '/^Theme/a ShowDelay\=0' /etc/plymouth/plymouthd.conf
-    sed -i '/message/d' /etc/grub.d/10_linux
+    sudo sed -i '/^HOOKS/ s/udev /udev plymouth /' /etc/mkinitcpio.conf
+    sudo mkinitcpio -p linux-lts
+    sudo plymouth-set-default-theme -R bgrt
+    sudo sed -i '/^Theme/a ShowDelay\=0' /etc/plymouth/plymouthd.conf
+    sudo sed -i '/message/d' /etc/grub.d/10_linux
 }
 
 function InstallAURPackages() {
